@@ -1,0 +1,1598 @@
+openapi: 3.0.1
+info:
+  contact:
+    name: Live Docs
+    url: https://docs.vodapaygateway.vodacom.co.za/
+  description: Enabling ecommerce merchants to accept online payments from customers.
+  title: VodaPay Gateway
+  version: v2.0
+servers:
+- url: /
+tags:
+- name: Wallet
+- name: Pay
+- name: Plugin
+- name: Token
+paths:
+  /v2/DigitalWallet/Block:
+    post:
+      operationId: DigitalWallet_Block
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      - description: "if set to true [is testing]."
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
+        description: VodaPayGatewayDigitalWallet.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayDigitalWalletResponse'
+          description: Block a digital wallet
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse'
+          description: Error blocking a digital wallet
+      summary: Block wallet.
+      tags:
+      - Wallet
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/WalletController
+  /v2/DigitalWallet/Unblock:
+    post:
+      operationId: DigitalWallet_Unblock
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      - description: "if set to true [is testing]."
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
+        description: VodaPayGatewayDigitalWallet.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentDigitalWalletResponseModel'
+          description: Unblock a digital wallet
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorPaymentDigitalWalletResponseModel'
+          description: Error unblocking a digital wallet
+      summary: Unblock wallet.
+      tags:
+      - Wallet
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/WalletController
+  /v2/Pay/OnceOff:
+    post:
+      operationId: Pay_OnceOff
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      - description: The testing flag.
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayPayment'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayPayment'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayPayment'
+        description: VodaPayGatewayPayment.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayResponse'
+          description: payment intent
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayResponse'
+          description: Error performing a payment intent
+      summary: Immediate payment intent.
+      tags:
+      - Pay
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/PayController
+  /v2/Pay/CompleteOnceOff:
+    post:
+      operationId: Pay_CompleteOnceOff
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      - description: "if set to true [is testing]."
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayPaymentComplete'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayPaymentComplete'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayPaymentComplete'
+        description: VodaPayGatewayPaymentComplete.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayCompleteResponse'
+          description: Complete a payment
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayCompleteResponse'
+          description: Error completing a payment
+      summary: Complete payment.
+      tags:
+      - Pay
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/PayController
+  /v2/Pay/Recurring:
+    post:
+      operationId: Pay_Recurring
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      - description: "if set to true [is testing]."
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRecurring'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRecurring'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRecurring'
+        description: VodaPayGatewayRecurring.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayResponse'
+          description: Recurring payment
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayResponse'
+          description: Error with recurring payment
+      summary: Create recurring payment.
+      tags:
+      - Pay
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/PayController
+  /v2/Pay/SubmitRecurring:
+    post:
+      operationId: Pay_SubmitRecurring
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      - description: "if set to true [is testing]."
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRecurringSubmit'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRecurringSubmit'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRecurringSubmit'
+        description: VodaPayGatewayRecurringSubmit.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewaySubmitRecurringResponse'
+          description: Submit recurring payment
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewaySubmitRecurringResponse'
+          description: Error with submitting a recurring payment
+      summary: Submit recurring payment.
+      tags:
+      - Pay
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/PayController
+  /v2/Pay/Refund:
+    post:
+      operationId: Pay_Refund
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      - description: "if set to true [is testing]."
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRefund'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRefund'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRefund'
+        description: VodaPayGatewayRefund.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayRefundResponse'
+          description: Immediate refund
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayRefundResponse'
+          description: Error with immediate refund
+      summary: Immediate refund.
+      tags:
+      - Pay
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/PayController
+  /v2/Plugin/EcwidPayment:
+    post:
+      operationId: Plugin_EcwidPayment
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Plugin_EcwidPayment_request'
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: ""
+      summary: Ecwids the payment.
+      tags:
+      - Plugin
+      x-eov-operation-handler: controllers/PluginController
+  /v2/Plugin/EcwidPaymentCallback:
+    get:
+      operationId: Plugin_EcwidPaymentCallback
+      parameters:
+      - description: The data.
+        in: query
+        name: data
+        schema:
+          nullable: true
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: ""
+      summary: Ecwids the payment callback.
+      tags:
+      - Plugin
+      x-eov-operation-handler: controllers/PluginController
+  /v2/Token/Create:
+    post:
+      operationId: Token_Create
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayCreateToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayCreateToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayCreateToken'
+        description: VodaPayGatewayCreateToken.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: Initiate the issue of a token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+          description: Error with initiating the issue of a token
+      summary: Create the specified model.
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+  /v2/Token/Authenticate:
+    post:
+      operationId: Token_Authenticate
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayAuthenticateToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayAuthenticateToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayAuthenticateToken'
+        description: VodaPayGatewayTokenResponse.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: Initiate the issue authentication of a token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+          description: Error with initiating authentication of a token
+      summary: Initiate authentication of token
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+  /v2/Token/List:
+    post:
+      operationId: Token_List
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayListToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayListToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayListToken'
+        description: VodaPayGatewayListToken.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenListResponse'
+          description: Get a list of a tokens
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenListResponse'
+          description: Error with getting a list of a tokens
+      summary: Get a list of tokens.
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+  /v2/Token/Remove:
+    post:
+      operationId: Token_Remove
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRemoveToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRemoveToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayRemoveToken'
+        description: VodaPayGatewayRemoveToken.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: Removes a token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+          description: Error with removing a token
+      summary: Removes a token.
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+  /v2/Token/Cancel:
+    post:
+      operationId: Token_Cancel
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+        description: VodaPayGatewayToken.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: Cancels a token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+          description: Error with canceling a token
+      summary: Cancel a token.
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+  /v2/Token/Block:
+    post:
+      operationId: Token_Block
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+        description: VodaPayGatewayToken.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: ' Blocks a token'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+          description: ' Error with blocking a token'
+      summary: Block a token.
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+  /v2/Token/Unblock:
+    post:
+      operationId: Token_Unblock
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+        description: VodaPayGatewayToken.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: Unblocks a token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+          description: Error with unblocking a token
+      summary: Unblock a token.
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+  /v2/Token/SetDefault:
+    post:
+      operationId: Token_SetDefault
+      parameters:
+      - description: The API key.
+        in: header
+        name: api-key
+        schema:
+          format: guid
+          nullable: false
+          type: string
+          x-originalName: apiKey
+        x-originalName: apiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VodaPayGatewayToken'
+        description: VodaPayGatewayToken.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: Set token as default
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+          description: Error with setting of a default
+      summary: Set token as default.
+      tags:
+      - Token
+      x-codegen-request-body-name: model
+      x-eov-operation-handler: controllers/TokenController
+components:
+  schemas:
+    VodaPayGatewayDigitalWalletResponse:
+      example:
+        traceId: traceId
+        wasSuccessful: true
+        echoData: echoData
+        sessionId: sessionId
+        responseMessage: responseMessage
+        tokenRequesterId: tokenRequesterId
+        responseCode: responseCode
+      properties:
+        echoData:
+          type: string
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        wasSuccessful:
+          type: boolean
+        tokenRequesterId:
+          type: string
+        traceId:
+          type: string
+        sessionId:
+          type: string
+      required:
+      - wasSuccessful
+      type: object
+    ErrorVodaPayGatewayWalletResponse:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayDigitalWalletResponse'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayDigitalWallet:
+      example:
+        traceId: traceId
+        customerId: customerId
+        digitalWalletId: digitalWalletId
+        echoData: echoData
+      properties:
+        echoData:
+          type: string
+        traceId:
+          type: string
+        customerId:
+          type: string
+        digitalWalletId:
+          type: string
+      type: object
+    PaymentDigitalWalletResponseModel:
+      allOf:
+      - $ref: '#/components/schemas/BaseResponseModel'
+      - $ref: '#/components/schemas/PaymentDigitalWalletResponseModel_allOf'
+    BaseResponseModel:
+      properties:
+        responseMessage:
+          type: string
+        responseCode:
+          type: string
+        wasSuccessful:
+          type: boolean
+      required:
+      - wasSuccessful
+      type: object
+    ErrorPaymentDigitalWalletResponseModel:
+      allOf:
+      - $ref: '#/components/schemas/PaymentDigitalWalletResponseModel'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayResponse:
+      example:
+        transmissionDateTime: 2000-01-23T04:56:07.000+00:00
+        traceId: traceId
+        wasSuccessful: true
+        initiationUrl: initiationUrl
+        echoData: echoData
+        sessionId: sessionId
+        responseMessage: responseMessage
+        transactionId: transactionId
+        responseCode: responseCode
+      properties:
+        echoData:
+          type: string
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        wasSuccessful:
+          type: boolean
+        transmissionDateTime:
+          format: date-time
+          type: string
+        traceId:
+          type: string
+        sessionId:
+          type: string
+        transactionId:
+          type: string
+        initiationUrl:
+          type: string
+      required:
+      - transmissionDateTime
+      - wasSuccessful
+      type: object
+    ErrorVodaPayGatewayResponse:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayResponse'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayPayment:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayBase'
+      - $ref: '#/components/schemas/VodaPayGatewayPayment_allOf'
+    VodaPayGatewayBase:
+      properties:
+        echoData:
+          type: string
+        traceId:
+          type: string
+        amount:
+          format: int32
+          type: integer
+        additionalData:
+          type: string
+        customerId:
+          type: string
+        digitalWalletId:
+          type: string
+        notifications:
+          $ref: '#/components/schemas/Notifications'
+        styling:
+          $ref: '#/components/schemas/Styling'
+        basket:
+          items:
+            $ref: '#/components/schemas/BasketItems'
+          type: array
+        communication:
+          $ref: '#/components/schemas/Communication'
+      required:
+      - amount
+      type: object
+    Notifications:
+      example:
+        notificationUrl: notificationUrl
+        callbackUrl: callbackUrl
+      properties:
+        callbackUrl:
+          type: string
+        notificationUrl:
+          type: string
+      type: object
+    Styling:
+      example:
+        bannerUrl: bannerUrl
+        theme: null
+        logoUrl: logoUrl
+      properties:
+        logoUrl:
+          type: string
+        bannerUrl:
+          type: string
+        theme:
+          $ref: '#/components/schemas/PaymentPageTheme'
+      required:
+      - theme
+      type: object
+    PaymentPageTheme:
+      description: ""
+      enum:
+      - LightTheme
+      - DarkTheme
+      - MiniApp
+      type: string
+      x-enumNames:
+      - LightTheme
+      - DarkTheme
+      - MiniApp
+    BasketItems:
+      properties:
+        lineNumber:
+          type: string
+        id:
+          type: string
+        barcode:
+          type: string
+        description:
+          type: string
+        quantity:
+          format: int32
+          type: integer
+        amountExVAT:
+          format: int32
+          type: integer
+        amountVAT:
+          format: int32
+          type: integer
+      required:
+      - amountExVAT
+      - amountVAT
+      - quantity
+      type: object
+    Communication:
+      properties:
+        msisdn:
+          type: string
+        message:
+          type: string
+      type: object
+    VodaPayGatewayCompleteResponse:
+      example:
+        wasSuccessful: true
+        echoData: echoData
+        sessionId: sessionId
+        responseMessage: responseMessage
+        transactionId: transactionId
+        responseCode: responseCode
+      properties:
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        wasSuccessful:
+          type: boolean
+        echoData:
+          type: string
+        sessionId:
+          type: string
+        transactionId:
+          type: string
+      required:
+      - wasSuccessful
+      type: object
+    ErrorVodaPayGatewayCompleteResponse:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayCompleteResponse'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayPaymentComplete:
+      example:
+        action: null
+        echoData: echoData
+        transactionId: transactionId
+      properties:
+        echoData:
+          type: string
+        transactionId:
+          type: string
+        action:
+          $ref: '#/components/schemas/CompleteActions'
+      required:
+      - action
+      type: object
+    CompleteActions:
+      description: ""
+      enum:
+      - "00"
+      - "17"
+      type: string
+      x-enumNames:
+      - Settle
+      - Reversal
+    VodaPayGatewayRecurring:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayBase'
+      - $ref: '#/components/schemas/VodaPayGatewayRecurring_allOf'
+    Recurring:
+      example:
+        amountLimit: 5
+        amount: 5
+        numberOfInstallments: 6
+        paymentInstrumentMinimumValidityPeriod: 2
+        lastPaymentDate: 2000-01-23T04:56:07.000+00:00
+        firstPaymentDate: 2000-01-23T04:56:07.000+00:00
+        regularPaymentDay: 1
+        category: null
+        frequency: null
+      properties:
+        category:
+          $ref: '#/components/schemas/Category'
+        frequency:
+          $ref: '#/components/schemas/FrequencyCodes'
+        firstPaymentDate:
+          format: date-time
+          type: string
+        lastPaymentDate:
+          format: date-time
+          type: string
+        numberOfInstallments:
+          format: int32
+          type: integer
+        regularPaymentDay:
+          format: int32
+          type: integer
+        amount:
+          format: int32
+          type: integer
+        amountLimit:
+          format: int32
+          type: integer
+        paymentInstrumentMinimumValidityPeriod:
+          format: int32
+          type: integer
+      required:
+      - category
+      - frequency
+      - paymentInstrumentMinimumValidityPeriod
+      type: object
+    Category:
+      description: ""
+      enum:
+      - FixedPeriodMerchant
+      - FixedPeriodTEP
+      - OngoingMerchant
+      - OngoingTEP
+      - OngoingVariableMerchant
+      type: string
+      x-enumNames:
+      - FixedPeriodMerchant
+      - FixedPeriodTEP
+      - OngoingMerchant
+      - OngoingTEP
+      - OngoingVariableMerchant
+    FrequencyCodes:
+      description: ""
+      enum:
+      - AdHoc
+      - Daily
+      - BiWeekly
+      - Weekly
+      - Fortnightly
+      - Monthly
+      - Quarterly
+      - TwiceAnnually
+      - Annually
+      type: string
+      x-enumNames:
+      - AdHoc
+      - Daily
+      - BiWeekly
+      - Weekly
+      - Fortnightly
+      - Monthly
+      - Quarterly
+      - TwiceAnnually
+      - Annually
+    VodaPayGatewaySubmitRecurringResponse:
+      example:
+        transmissionDateTime: 2000-01-23T04:56:07.000+00:00
+        paymentToken: paymentToken
+        traceId: traceId
+        wasSuccessful: true
+        echoData: echoData
+        sessionId: sessionId
+        responseMessage: responseMessage
+        transactionId: transactionId
+        responseCode: responseCode
+      properties:
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        wasSuccessful:
+          type: boolean
+        transmissionDateTime:
+          format: date-time
+          type: string
+        paymentToken:
+          type: string
+        transactionId:
+          type: string
+        echoData:
+          type: string
+        traceId:
+          type: string
+        sessionId:
+          type: string
+      required:
+      - transmissionDateTime
+      - wasSuccessful
+      type: object
+    ErrorVodaPayGatewaySubmitRecurringResponse:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewaySubmitRecurringResponse'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayRecurringSubmit:
+      example:
+        traceId: traceId
+        paymentToken: paymentToken
+        amount: 0
+        customerId: customerId
+        echoData: echoData
+        additionalData: additionalData
+        notifications:
+          notificationUrl: notificationUrl
+          callbackUrl: callbackUrl
+      properties:
+        echoData:
+          type: string
+        traceId:
+          type: string
+        paymentToken:
+          type: string
+        additionalData:
+          type: string
+        amount:
+          format: int32
+          type: integer
+        customerId:
+          type: string
+        notifications:
+          $ref: '#/components/schemas/Notifications'
+      required:
+      - amount
+      type: object
+    VodaPayGatewayRefundResponse:
+      example:
+        transmissionDateTime: 2000-01-23T04:56:07.000+00:00
+        traceId: traceId
+        amount: 0
+        transactionDateTime: 2000-01-23T04:56:07.000+00:00
+        wasSuccessful: true
+        echoData: echoData
+        sessionId: sessionId
+        responseMessage: responseMessage
+        transactionId: transactionId
+        responseCode: responseCode
+      properties:
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        wasSuccessful:
+          type: boolean
+        transmissionDateTime:
+          format: date-time
+          type: string
+        transactionDateTime:
+          format: date-time
+          type: string
+        transactionId:
+          type: string
+        echoData:
+          type: string
+        traceId:
+          type: string
+        sessionId:
+          type: string
+        amount:
+          format: int32
+          type: integer
+      required:
+      - amount
+      - transactionDateTime
+      - transmissionDateTime
+      - wasSuccessful
+      type: object
+    ErrorVodaPayGatewayRefundResponse:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayRefundResponse'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayRefund:
+      example:
+        traceId: traceId
+        paymentToken: paymentToken
+        amount: 0
+        originalTransactionId: originalTransactionId
+        echoData: echoData
+        notifications:
+          notificationUrl: notificationUrl
+          callbackUrl: callbackUrl
+      properties:
+        echoData:
+          type: string
+        traceId:
+          type: string
+        originalTransactionId:
+          type: string
+        amount:
+          format: int32
+          type: integer
+        paymentToken:
+          type: string
+        notifications:
+          $ref: '#/components/schemas/Notifications'
+      required:
+      - amount
+      type: object
+    VodaPayGatewayTokenResponse:
+      example:
+        transmissionDateTime: 2000-01-23T04:56:07.000+00:00
+        traceId: traceId
+        wasSuccessful: true
+        initiationUrl: initiationUrl
+        echoData: echoData
+        sessionId: sessionId
+        responseMessage: responseMessage
+        transactionId: transactionId
+        responseCode: responseCode
+      properties:
+        echoData:
+          type: string
+        responseMessage:
+          type: string
+        responseCode:
+          type: string
+        wasSuccessful:
+          type: boolean
+        transmissionDateTime:
+          format: date-time
+          type: string
+        sessionId:
+          type: string
+        transactionId:
+          type: string
+        traceId:
+          type: string
+        initiationUrl:
+          type: string
+      required:
+      - transmissionDateTime
+      - wasSuccessful
+      type: object
+    ErrorVodaPayGatewayTokenResponse:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayCreateToken:
+      example:
+        traceId: traceId
+        paymentToken: paymentToken
+        amount: 0
+        styling:
+          bannerUrl: bannerUrl
+          theme: null
+          logoUrl: logoUrl
+        recurring:
+          amountLimit: 5
+          amount: 5
+          numberOfInstallments: 6
+          paymentInstrumentMinimumValidityPeriod: 2
+          lastPaymentDate: 2000-01-23T04:56:07.000+00:00
+          firstPaymentDate: 2000-01-23T04:56:07.000+00:00
+          regularPaymentDay: 1
+          category: null
+          frequency: null
+        customerId: customerId
+        digitalWalletId: digitalWalletId
+        echoData: echoData
+        notifications:
+          notificationUrl: notificationUrl
+          callbackUrl: callbackUrl
+      properties:
+        echoData:
+          type: string
+        traceId:
+          type: string
+        paymentToken:
+          type: string
+        amount:
+          format: int32
+          type: integer
+        customerId:
+          type: string
+        digitalWalletId:
+          type: string
+        recurring:
+          $ref: '#/components/schemas/Recurring'
+        notifications:
+          $ref: '#/components/schemas/Notifications'
+        styling:
+          $ref: '#/components/schemas/Styling'
+      required:
+      - amount
+      type: object
+    VodaPayGatewayAuthenticateToken:
+      example:
+        traceId: traceId
+        paymentToken: paymentToken
+        amount: 0
+        styling:
+          bannerUrl: bannerUrl
+          theme: null
+          logoUrl: logoUrl
+        recurring:
+          amountLimit: 5
+          amount: 5
+          numberOfInstallments: 6
+          paymentInstrumentMinimumValidityPeriod: 2
+          lastPaymentDate: 2000-01-23T04:56:07.000+00:00
+          firstPaymentDate: 2000-01-23T04:56:07.000+00:00
+          regularPaymentDay: 1
+          category: null
+          frequency: null
+        customerId: customerId
+        digitalWalletId: digitalWalletId
+        echoData: echoData
+        notifications:
+          notificationUrl: notificationUrl
+          callbackUrl: callbackUrl
+      properties:
+        echoData:
+          type: string
+        traceId:
+          type: string
+        paymentToken:
+          type: string
+        amount:
+          format: int32
+          type: integer
+        customerId:
+          type: string
+        digitalWalletId:
+          type: string
+        recurring:
+          $ref: '#/components/schemas/Recurring'
+        notifications:
+          $ref: '#/components/schemas/Notifications'
+        styling:
+          $ref: '#/components/schemas/Styling'
+      required:
+      - amount
+      type: object
+    VodaPayGatewayTokenListResponse:
+      example:
+        traceId: traceId
+        wasSuccessful: true
+        paymentTokens:
+        - paymentInstrumentAssociationName: paymentInstrumentAssociationName
+          paymentInstrumentCategoryCode: paymentInstrumentCategoryCode
+          paymentInstrumentType: paymentInstrumentType
+          additionalPaymentTokenInformation: additionalPaymentTokenInformation
+          paymentInstrumentMessageSequence: paymentInstrumentMessageSequence
+          defaultPaymentInstrument: true
+          token: token
+          paymentInstrumentName: paymentInstrumentName
+          truncatedPaymentInstrument: truncatedPaymentInstrument
+          paymentInstrumentExpiryDate: paymentInstrumentExpiryDate
+          issueDate: issueDate
+          expiryDateTime: expiryDateTime
+          status: status
+        - paymentInstrumentAssociationName: paymentInstrumentAssociationName
+          paymentInstrumentCategoryCode: paymentInstrumentCategoryCode
+          paymentInstrumentType: paymentInstrumentType
+          additionalPaymentTokenInformation: additionalPaymentTokenInformation
+          paymentInstrumentMessageSequence: paymentInstrumentMessageSequence
+          defaultPaymentInstrument: true
+          token: token
+          paymentInstrumentName: paymentInstrumentName
+          truncatedPaymentInstrument: truncatedPaymentInstrument
+          paymentInstrumentExpiryDate: paymentInstrumentExpiryDate
+          issueDate: issueDate
+          expiryDateTime: expiryDateTime
+          status: status
+        echoData: echoData
+        sessionId: sessionId
+        responseMessage: responseMessage
+        tokenRequesterId: tokenRequesterId
+        responseCode: responseCode
+      properties:
+        responseMessage:
+          type: string
+        responseCode:
+          type: string
+        wasSuccessful:
+          type: boolean
+        echoData:
+          type: string
+        tokenRequesterId:
+          type: string
+        traceId:
+          type: string
+        sessionId:
+          type: string
+        paymentTokens:
+          items:
+            $ref: '#/components/schemas/PaymentToken'
+          type: array
+      required:
+      - wasSuccessful
+      type: object
+    PaymentToken:
+      example:
+        paymentInstrumentAssociationName: paymentInstrumentAssociationName
+        paymentInstrumentCategoryCode: paymentInstrumentCategoryCode
+        paymentInstrumentType: paymentInstrumentType
+        additionalPaymentTokenInformation: additionalPaymentTokenInformation
+        paymentInstrumentMessageSequence: paymentInstrumentMessageSequence
+        defaultPaymentInstrument: true
+        token: token
+        paymentInstrumentName: paymentInstrumentName
+        truncatedPaymentInstrument: truncatedPaymentInstrument
+        paymentInstrumentExpiryDate: paymentInstrumentExpiryDate
+        issueDate: issueDate
+        expiryDateTime: expiryDateTime
+        status: status
+      properties:
+        issueDate:
+          type: string
+        token:
+          type: string
+        expiryDateTime:
+          type: string
+        status:
+          type: string
+        paymentInstrumentCategoryCode:
+          type: string
+        paymentInstrumentName:
+          type: string
+        truncatedPaymentInstrument:
+          type: string
+        paymentInstrumentAssociationName:
+          type: string
+        paymentInstrumentType:
+          type: string
+        paymentInstrumentMessageSequence:
+          type: string
+        defaultPaymentInstrument:
+          type: boolean
+        paymentInstrumentExpiryDate:
+          type: string
+        additionalPaymentTokenInformation:
+          type: string
+      required:
+      - defaultPaymentInstrument
+      type: object
+    ErrorVodaPayGatewayTokenListResponse:
+      allOf:
+      - $ref: '#/components/schemas/VodaPayGatewayTokenListResponse'
+      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
+    VodaPayGatewayListToken:
+      example:
+        traceId: traceId
+        customerId: customerId
+        digitalWalletId: digitalWalletId
+        echoData: echoData
+      properties:
+        echoData:
+          type: string
+        traceId:
+          type: string
+        customerId:
+          type: string
+        digitalWalletId:
+          type: string
+      type: object
+    VodaPayGatewayRemoveToken:
+      example:
+        paymentToken: paymentToken
+        traceId: traceId
+        customerId: customerId
+        digitalWalletId: digitalWalletId
+        echoData: echoData
+      properties:
+        echoData:
+          type: string
+        paymentToken:
+          type: string
+        traceId:
+          type: string
+        customerId:
+          type: string
+        digitalWalletId:
+          type: string
+      type: object
+    VodaPayGatewayToken:
+      example:
+        paymentToken: paymentToken
+        traceId: traceId
+        echoData: echoData
+      properties:
+        echoData:
+          type: string
+        paymentToken:
+          type: string
+        traceId:
+          type: string
+      type: object
+    Plugin_EcwidPayment_request:
+      properties:
+        data:
+          description: The data.
+          nullable: true
+          type: string
+    ErrorVodaPayGatewayWalletResponse_allOf:
+      properties:
+        wasSuccessful:
+          default: false
+          type: boolean
+      required:
+      - wasSuccessful
+      type: object
+    PaymentDigitalWalletResponseModel_allOf:
+      properties:
+        echoData:
+          type: string
+        tokenRequesterId:
+          type: string
+        retrievalReferenceNumberExtended:
+          type: string
+        sessionId:
+          type: string
+      type: object
+    VodaPayGatewayPayment_allOf:
+      properties:
+        delaySettlement:
+          type: boolean
+      required:
+      - delaySettlement
+      type: object
+    VodaPayGatewayRecurring_allOf:
+      properties:
+        accountVerification:
+          type: boolean
+        recurring:
+          $ref: '#/components/schemas/Recurring'
+      required:
+      - accountVerification
+      type: object
+x-generator: NSwag v13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))
+x-original-swagger-version: "2.0"
