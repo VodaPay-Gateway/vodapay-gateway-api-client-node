@@ -6,14 +6,16 @@ const Service = require('./Service');
 *
 * model VodaPayGatewayAuthenticateToken VodaPayGatewayTokenResponse.
 * apiKey String The API key. (optional)
+* test Boolean Is testing  (optional)
 * returns VodaPayGatewayTokenResponse
 * */
-const token_Authenticate = ({ model, apiKey }) => new Promise(
+const token_Authenticate = ({ model, apiKey, test }) => new Promise(
   async (resolve, reject) => {
     try {
       resolve(Service.successResponse({
         model,
         apiKey,
+        test,
       }));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -24,40 +26,21 @@ const token_Authenticate = ({ model, apiKey }) => new Promise(
   },
 );
 /**
-* Block a token.
 *
-* model VodaPayGatewayToken VodaPayGatewayToken.
-* apiKey String The API key. (optional)
+* control String 
+* model VodaPayGatewayToken 
+* apiKey String  (optional)
+* test Boolean  (optional)
 * returns VodaPayGatewayTokenResponse
 * */
-const token_Block = ({ model, apiKey }) => new Promise(
+const token_Control = ({ control, model, apiKey, test }) => new Promise(
   async (resolve, reject) => {
     try {
       resolve(Service.successResponse({
+        control,
         model,
         apiKey,
-      }));
-    } catch (e) {
-      reject(Service.rejectResponse(
-        e.message || 'Invalid input',
-        e.status || 405,
-      ));
-    }
-  },
-);
-/**
-* Cancel a token.
-*
-* model VodaPayGatewayToken VodaPayGatewayToken.
-* apiKey String The API key. (optional)
-* returns VodaPayGatewayTokenResponse
-* */
-const token_Cancel = ({ model, apiKey }) => new Promise(
-  async (resolve, reject) => {
-    try {
-      resolve(Service.successResponse({
-        model,
-        apiKey,
+        test,
       }));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -72,14 +55,16 @@ const token_Cancel = ({ model, apiKey }) => new Promise(
 *
 * model VodaPayGatewayCreateToken VodaPayGatewayCreateToken.
 * apiKey String The API key. (optional)
+* test Boolean Is testing  (optional)
 * returns VodaPayGatewayTokenResponse
 * */
-const token_Create = ({ model, apiKey }) => new Promise(
+const token_Create = ({ model, apiKey, test }) => new Promise(
   async (resolve, reject) => {
     try {
       resolve(Service.successResponse({
         model,
         apiKey,
+        test,
       }));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -94,80 +79,16 @@ const token_Create = ({ model, apiKey }) => new Promise(
 *
 * model VodaPayGatewayListToken VodaPayGatewayListToken.
 * apiKey String The API key. (optional)
+* test Boolean Is testing  (optional)
 * returns VodaPayGatewayTokenListResponse
 * */
-const token_List = ({ model, apiKey }) => new Promise(
+const token_List = ({ model, apiKey, test }) => new Promise(
   async (resolve, reject) => {
     try {
       resolve(Service.successResponse({
         model,
         apiKey,
-      }));
-    } catch (e) {
-      reject(Service.rejectResponse(
-        e.message || 'Invalid input',
-        e.status || 405,
-      ));
-    }
-  },
-);
-/**
-* Removes a token.
-*
-* model VodaPayGatewayRemoveToken VodaPayGatewayRemoveToken.
-* apiKey String The API key. (optional)
-* returns VodaPayGatewayTokenResponse
-* */
-const token_Remove = ({ model, apiKey }) => new Promise(
-  async (resolve, reject) => {
-    try {
-      resolve(Service.successResponse({
-        model,
-        apiKey,
-      }));
-    } catch (e) {
-      reject(Service.rejectResponse(
-        e.message || 'Invalid input',
-        e.status || 405,
-      ));
-    }
-  },
-);
-/**
-* Set token as default.
-*
-* model VodaPayGatewayToken VodaPayGatewayToken.
-* apiKey String The API key. (optional)
-* returns VodaPayGatewayTokenResponse
-* */
-const token_SetDefault = ({ model, apiKey }) => new Promise(
-  async (resolve, reject) => {
-    try {
-      resolve(Service.successResponse({
-        model,
-        apiKey,
-      }));
-    } catch (e) {
-      reject(Service.rejectResponse(
-        e.message || 'Invalid input',
-        e.status || 405,
-      ));
-    }
-  },
-);
-/**
-* Unblock a token.
-*
-* model VodaPayGatewayToken VodaPayGatewayToken.
-* apiKey String The API key. (optional)
-* returns VodaPayGatewayTokenResponse
-* */
-const token_Unblock = ({ model, apiKey }) => new Promise(
-  async (resolve, reject) => {
-    try {
-      resolve(Service.successResponse({
-        model,
-        apiKey,
+        test,
       }));
     } catch (e) {
       reject(Service.rejectResponse(
@@ -180,11 +101,7 @@ const token_Unblock = ({ model, apiKey }) => new Promise(
 
 module.exports = {
   token_Authenticate,
-  token_Block,
-  token_Cancel,
+  token_Control,
   token_Create,
   token_List,
-  token_Remove,
-  token_SetDefault,
-  token_Unblock,
 };

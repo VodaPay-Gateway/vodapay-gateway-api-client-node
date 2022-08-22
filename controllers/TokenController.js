@@ -12,12 +12,8 @@ const token_Authenticate = async (request, response) => {
   await Controller.handleRequest(request, response, service.token_Authenticate);
 };
 
-const token_Block = async (request, response) => {
-  await Controller.handleRequest(request, response, service.token_Block);
-};
-
-const token_Cancel = async (request, response) => {
-  await Controller.handleRequest(request, response, service.token_Cancel);
+const token_Control = async (request, response) => {
+  await Controller.handleRequest(request, response, service.token_Control);
 };
 
 const token_Create = async (request, response) => {
@@ -28,26 +24,10 @@ const token_List = async (request, response) => {
   await Controller.handleRequest(request, response, service.token_List);
 };
 
-const token_Remove = async (request, response) => {
-  await Controller.handleRequest(request, response, service.token_Remove);
-};
-
-const token_SetDefault = async (request, response) => {
-  await Controller.handleRequest(request, response, service.token_SetDefault);
-};
-
-const token_Unblock = async (request, response) => {
-  await Controller.handleRequest(request, response, service.token_Unblock);
-};
-
 
 module.exports = {
   token_Authenticate,
-  token_Block,
-  token_Cancel,
+  token_Control,
   token_Create,
   token_List,
-  token_Remove,
-  token_SetDefault,
-  token_Unblock,
 };

@@ -5,6 +5,7 @@ api/openapi.yaml
 config.js
 controllers/Controller.js
 controllers/PayController.js
+controllers/PayProcessController.js
 controllers/PluginController.js
 controllers/TokenController.js
 controllers/WalletController.js
@@ -13,6 +14,7 @@ expressServer.js
 index.js
 logger.js
 package.json
+services/PayProcessService.js
 services/PayService.js
 services/PluginService.js
 services/Service.js

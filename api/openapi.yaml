@@ -13,6 +13,7 @@ tags:
 - name: Pay
 - name: Plugin
 - name: Token
+- name: Pay/Process
 paths:
   /v2/DigitalWallet/Block:
     post:
@@ -60,7 +61,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse'
+                $ref: '#/components/schemas/VodaPayGatewayDigitalWalletResponse'
           description: Error blocking a digital wallet
       summary: Block wallet.
       tags:
@@ -113,7 +114,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorPaymentDigitalWalletResponseModel'
+                $ref: '#/components/schemas/PaymentDigitalWalletResponseModel'
           description: Error unblocking a digital wallet
       summary: Unblock wallet.
       tags:
@@ -166,7 +167,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayResponse'
+                $ref: '#/components/schemas/VodaPayGatewayResponse'
           description: Error performing a payment intent
       summary: Immediate payment intent.
       tags:
@@ -219,7 +220,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayCompleteResponse'
+                $ref: '#/components/schemas/VodaPayGatewayCompleteResponse'
           description: Error completing a payment
       summary: Complete payment.
       tags:
@@ -272,7 +273,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayResponse'
+                $ref: '#/components/schemas/VodaPayGatewayResponse'
           description: Error with recurring payment
       summary: Create recurring payment.
       tags:
@@ -325,7 +326,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewaySubmitRecurringResponse'
+                $ref: '#/components/schemas/VodaPayGatewaySubmitRecurringResponse'
           description: Error with submitting a recurring payment
       summary: Submit recurring payment.
       tags:
@@ -378,7 +379,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayRefundResponse'
+                $ref: '#/components/schemas/VodaPayGatewayRefundResponse'
           description: Error with immediate refund
       summary: Immediate refund.
       tags:
@@ -440,6 +441,15 @@ paths:
           type: string
           x-originalName: apiKey
         x-originalName: apiKey
+      - description: 'Is testing '
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
       requestBody:
         content:
           application/json:
@@ -464,7 +474,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
           description: Error with initiating the issue of a token
       summary: Create the specified model.
       tags:
@@ -484,6 +494,15 @@ paths:
           type: string
           x-originalName: apiKey
         x-originalName: apiKey
+      - description: 'Is testing '
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
       requestBody:
         content:
           application/json:
@@ -508,7 +527,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
           description: Error with initiating authentication of a token
       summary: Initiate authentication of token
       tags:
@@ -528,6 +547,15 @@ paths:
           type: string
           x-originalName: apiKey
         x-originalName: apiKey
+      - description: 'Is testing '
+        in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
       requestBody:
         content:
           application/json:
@@ -552,19 +580,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenListResponse'
+                $ref: '#/components/schemas/VodaPayGatewayTokenListResponse'
           description: Error with getting a list of a tokens
       summary: Get a list of tokens.
       tags:
       - Token
       x-codegen-request-body-name: model
       x-eov-operation-handler: controllers/TokenController
-  /v2/Token/Remove:
+  /v2/Token/{control}:
     post:
-      operationId: Token_Remove
+      operationId: Token_Control
       parameters:
-      - description: The API key.
-        in: header
+      - in: header
         name: api-key
         schema:
           format: guid
@@ -572,50 +599,20 @@ paths:
           type: string
           x-originalName: apiKey
         x-originalName: apiKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayRemoveToken'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayRemoveToken'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayRemoveToken'
-        description: VodaPayGatewayRemoveToken.
+      - in: path
+        name: control
         required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
-          description: Removes a token
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
-          description: Error with removing a token
-      summary: Removes a token.
-      tags:
-      - Token
-      x-codegen-request-body-name: model
-      x-eov-operation-handler: controllers/TokenController
-  /v2/Token/Cancel:
-    post:
-      operationId: Token_Cancel
-      parameters:
-      - description: The API key.
-        in: header
-        name: api-key
         schema:
-          format: guid
-          nullable: false
+          nullable: true
           type: string
-          x-originalName: apiKey
-        x-originalName: apiKey
+      - in: header
+        name: test
+        schema:
+          default: false
+          nullable: false
+          type: boolean
+          x-originalName: isTesting
+        x-originalName: isTesting
       requestBody:
         content:
           application/json:
@@ -627,7 +624,6 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayToken'
-        description: VodaPayGatewayToken.
         required: true
       responses:
         "200":
@@ -635,156 +631,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
-          description: Cancels a token
+          description: ""
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
-          description: Error with canceling a token
-      summary: Cancel a token.
+                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
+          description: ""
       tags:
       - Token
       x-codegen-request-body-name: model
       x-eov-operation-handler: controllers/TokenController
-  /v2/Token/Block:
+  /v2/PayProcess/OnceOff:
     post:
-      operationId: Token_Block
-      parameters:
-      - description: The API key.
-        in: header
-        name: api-key
-        schema:
-          format: guid
-          nullable: false
-          type: string
-          x-originalName: apiKey
-        x-originalName: apiKey
+      operationId: PayProcess_OnceOff
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-        description: VodaPayGatewayToken.
-        required: true
+              $ref: '#/components/schemas/PayProcess_OnceOff_request'
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
-          description: ' Blocks a token'
+                $ref: '#/components/schemas/VodaPayGatewayResponse'
+          description: payment intent
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
-          description: ' Error with blocking a token'
-      summary: Block a token.
+                $ref: '#/components/schemas/VodaPayGatewayResponse'
+          description: Error performing a payment intent
+      summary: Immediate payment intent form post.
       tags:
-      - Token
-      x-codegen-request-body-name: model
-      x-eov-operation-handler: controllers/TokenController
-  /v2/Token/Unblock:
-    post:
-      operationId: Token_Unblock
-      parameters:
-      - description: The API key.
-        in: header
-        name: api-key
-        schema:
-          format: guid
-          nullable: false
-          type: string
-          x-originalName: apiKey
-        x-originalName: apiKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-        description: VodaPayGatewayToken.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
-          description: Unblocks a token
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
-          description: Error with unblocking a token
-      summary: Unblock a token.
-      tags:
-      - Token
-      x-codegen-request-body-name: model
-      x-eov-operation-handler: controllers/TokenController
-  /v2/Token/SetDefault:
-    post:
-      operationId: Token_SetDefault
-      parameters:
-      - description: The API key.
-        in: header
-        name: api-key
-        schema:
-          format: guid
-          nullable: false
-          type: string
-          x-originalName: apiKey
-        x-originalName: apiKey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
-        description: VodaPayGatewayToken.
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
-          description: Set token as default
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorVodaPayGatewayTokenResponse'
-          description: Error with setting of a default
-      summary: Set token as default.
-      tags:
-      - Token
-      x-codegen-request-body-name: model
-      x-eov-operation-handler: controllers/TokenController
+      - Pay/Process
+      x-eov-operation-handler: controllers/PayProcessController
 components:
   schemas:
     VodaPayGatewayDigitalWalletResponse:
       example:
         traceId: traceId
-        wasSuccessful: true
         echoData: echoData
         sessionId: sessionId
         responseMessage: responseMessage
@@ -797,21 +684,13 @@ components:
           type: string
         responseMessage:
           type: string
-        wasSuccessful:
-          type: boolean
         tokenRequesterId:
           type: string
         traceId:
           type: string
         sessionId:
           type: string
-      required:
-      - wasSuccessful
       type: object
-    ErrorVodaPayGatewayWalletResponse:
-      allOf:
-      - $ref: '#/components/schemas/VodaPayGatewayDigitalWalletResponse'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayDigitalWallet:
       example:
         traceId: traceId
@@ -838,20 +717,11 @@ components:
           type: string
         responseCode:
           type: string
-        wasSuccessful:
-          type: boolean
-      required:
-      - wasSuccessful
       type: object
-    ErrorPaymentDigitalWalletResponseModel:
-      allOf:
-      - $ref: '#/components/schemas/PaymentDigitalWalletResponseModel'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayResponse:
       example:
         transmissionDateTime: 2000-01-23T04:56:07.000+00:00
         traceId: traceId
-        wasSuccessful: true
         initiationUrl: initiationUrl
         echoData: echoData
         sessionId: sessionId
@@ -865,8 +735,6 @@ components:
           type: string
         responseMessage:
           type: string
-        wasSuccessful:
-          type: boolean
         transmissionDateTime:
           format: date-time
           type: string
@@ -880,12 +748,7 @@ components:
           type: string
       required:
       - transmissionDateTime
-      - wasSuccessful
       type: object
-    ErrorVodaPayGatewayResponse:
-      allOf:
-      - $ref: '#/components/schemas/VodaPayGatewayResponse'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayPayment:
       allOf:
       - $ref: '#/components/schemas/VodaPayGatewayBase'
@@ -915,6 +778,8 @@ components:
           type: array
         communication:
           $ref: '#/components/schemas/Communication'
+        electronicReceipt:
+          $ref: '#/components/schemas/ElectronicReceipt'
       required:
       - amount
       type: object
@@ -985,9 +850,29 @@ components:
         message:
           type: string
       type: object
+    ElectronicReceipt:
+      example:
+        address: address
+        method: null
+      properties:
+        method:
+          $ref: '#/components/schemas/ElectronicReceiptMethod'
+        address:
+          type: string
+      required:
+      - method
+      type: object
+    ElectronicReceiptMethod:
+      description: ""
+      enum:
+      - SMS
+      - Email
+      type: string
+      x-enumNames:
+      - SMS
+      - Email
     VodaPayGatewayCompleteResponse:
       example:
-        wasSuccessful: true
         echoData: echoData
         sessionId: sessionId
         responseMessage: responseMessage
@@ -998,21 +883,13 @@ components:
           type: string
         responseMessage:
           type: string
-        wasSuccessful:
-          type: boolean
         echoData:
           type: string
         sessionId:
           type: string
         transactionId:
           type: string
-      required:
-      - wasSuccessful
       type: object
-    ErrorVodaPayGatewayCompleteResponse:
-      allOf:
-      - $ref: '#/components/schemas/VodaPayGatewayCompleteResponse'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayPaymentComplete:
       example:
         action: null
@@ -1031,8 +908,8 @@ components:
     CompleteActions:
       description: ""
       enum:
-      - "00"
-      - "17"
+      - Settle
+      - Reversal
       type: string
       x-enumNames:
       - Settle
@@ -1042,16 +919,6 @@ components:
       - $ref: '#/components/schemas/VodaPayGatewayBase'
       - $ref: '#/components/schemas/VodaPayGatewayRecurring_allOf'
     Recurring:
-      example:
-        amountLimit: 5
-        amount: 5
-        numberOfInstallments: 6
-        paymentInstrumentMinimumValidityPeriod: 2
-        lastPaymentDate: 2000-01-23T04:56:07.000+00:00
-        firstPaymentDate: 2000-01-23T04:56:07.000+00:00
-        regularPaymentDay: 1
-        category: null
-        frequency: null
       properties:
         category:
           $ref: '#/components/schemas/Category'
@@ -1087,16 +954,12 @@ components:
       description: ""
       enum:
       - FixedPeriodMerchant
-      - FixedPeriodTEP
       - OngoingMerchant
-      - OngoingTEP
       - OngoingVariableMerchant
       type: string
       x-enumNames:
       - FixedPeriodMerchant
-      - FixedPeriodTEP
       - OngoingMerchant
-      - OngoingTEP
       - OngoingVariableMerchant
     FrequencyCodes:
       description: ""
@@ -1126,7 +989,6 @@ components:
         transmissionDateTime: 2000-01-23T04:56:07.000+00:00
         paymentToken: paymentToken
         traceId: traceId
-        wasSuccessful: true
         echoData: echoData
         sessionId: sessionId
         responseMessage: responseMessage
@@ -1137,8 +999,6 @@ components:
           type: string
         responseMessage:
           type: string
-        wasSuccessful:
-          type: boolean
         transmissionDateTime:
           format: date-time
           type: string
@@ -1154,12 +1014,7 @@ components:
           type: string
       required:
       - transmissionDateTime
-      - wasSuccessful
       type: object
-    ErrorVodaPayGatewaySubmitRecurringResponse:
-      allOf:
-      - $ref: '#/components/schemas/VodaPayGatewaySubmitRecurringResponse'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayRecurringSubmit:
       example:
         traceId: traceId
@@ -1168,6 +1023,9 @@ components:
         customerId: customerId
         echoData: echoData
         additionalData: additionalData
+        electronicReceipt:
+          address: address
+          method: null
         notifications:
           notificationUrl: notificationUrl
           callbackUrl: callbackUrl
@@ -1187,6 +1045,8 @@ components:
           type: string
         notifications:
           $ref: '#/components/schemas/Notifications'
+        electronicReceipt:
+          $ref: '#/components/schemas/ElectronicReceipt'
       required:
       - amount
       type: object
@@ -1196,7 +1056,6 @@ components:
         traceId: traceId
         amount: 0
         transactionDateTime: 2000-01-23T04:56:07.000+00:00
-        wasSuccessful: true
         echoData: echoData
         sessionId: sessionId
         responseMessage: responseMessage
@@ -1207,8 +1066,6 @@ components:
           type: string
         responseMessage:
           type: string
-        wasSuccessful:
-          type: boolean
         transmissionDateTime:
           format: date-time
           type: string
@@ -1230,12 +1087,7 @@ components:
       - amount
       - transactionDateTime
       - transmissionDateTime
-      - wasSuccessful
       type: object
-    ErrorVodaPayGatewayRefundResponse:
-      allOf:
-      - $ref: '#/components/schemas/VodaPayGatewayRefundResponse'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayRefund:
       example:
         traceId: traceId
@@ -1243,6 +1095,9 @@ components:
         amount: 0
         originalTransactionId: originalTransactionId
         echoData: echoData
+        electronicReceipt:
+          address: address
+          method: null
         notifications:
           notificationUrl: notificationUrl
           callbackUrl: callbackUrl
@@ -1260,6 +1115,8 @@ components:
           type: string
         notifications:
           $ref: '#/components/schemas/Notifications'
+        electronicReceipt:
+          $ref: '#/components/schemas/ElectronicReceipt'
       required:
       - amount
       type: object
@@ -1267,7 +1124,6 @@ components:
       example:
         transmissionDateTime: 2000-01-23T04:56:07.000+00:00
         traceId: traceId
-        wasSuccessful: true
         initiationUrl: initiationUrl
         echoData: echoData
         sessionId: sessionId
@@ -1281,8 +1137,6 @@ components:
           type: string
         responseCode:
           type: string
-        wasSuccessful:
-          type: boolean
         transmissionDateTime:
           format: date-time
           type: string
@@ -1296,12 +1150,7 @@ components:
           type: string
       required:
       - transmissionDateTime
-      - wasSuccessful
       type: object
-    ErrorVodaPayGatewayTokenResponse:
-      allOf:
-      - $ref: '#/components/schemas/VodaPayGatewayTokenResponse'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayCreateToken:
       example:
         traceId: traceId
@@ -1342,7 +1191,7 @@ components:
         digitalWalletId:
           type: string
         recurring:
-          $ref: '#/components/schemas/Recurring'
+          $ref: '#/components/schemas/Recurring2'
         notifications:
           $ref: '#/components/schemas/Notifications'
         styling:
@@ -1350,6 +1199,86 @@ components:
       required:
       - amount
       type: object
+    Recurring2:
+      example:
+        amountLimit: 5
+        amount: 5
+        numberOfInstallments: 6
+        paymentInstrumentMinimumValidityPeriod: 2
+        lastPaymentDate: 2000-01-23T04:56:07.000+00:00
+        firstPaymentDate: 2000-01-23T04:56:07.000+00:00
+        regularPaymentDay: 1
+        category: null
+        frequency: null
+      properties:
+        category:
+          $ref: '#/components/schemas/Category2'
+        frequency:
+          $ref: '#/components/schemas/FrequencyCodes2'
+        firstPaymentDate:
+          format: date-time
+          type: string
+        lastPaymentDate:
+          format: date-time
+          type: string
+        numberOfInstallments:
+          format: int32
+          type: integer
+        regularPaymentDay:
+          format: int32
+          type: integer
+        amount:
+          format: int32
+          type: integer
+        amountLimit:
+          format: int32
+          type: integer
+        paymentInstrumentMinimumValidityPeriod:
+          format: int32
+          type: integer
+      required:
+      - category
+      - frequency
+      - paymentInstrumentMinimumValidityPeriod
+      type: object
+    Category2:
+      description: ""
+      enum:
+      - FixedPeriodMerchant
+      - FixedPeriodTEP
+      - OngoingMerchant
+      - OngoingTEP
+      - OngoingVariableMerchant
+      type: string
+      x-enumNames:
+      - FixedPeriodMerchant
+      - FixedPeriodTEP
+      - OngoingMerchant
+      - OngoingTEP
+      - OngoingVariableMerchant
+    FrequencyCodes2:
+      description: ""
+      enum:
+      - AdHoc
+      - Daily
+      - BiWeekly
+      - Weekly
+      - Fortnightly
+      - Monthly
+      - Quarterly
+      - TwiceAnnually
+      - Annually
+      type: string
+      x-enumNames:
+      - AdHoc
+      - Daily
+      - BiWeekly
+      - Weekly
+      - Fortnightly
+      - Monthly
+      - Quarterly
+      - TwiceAnnually
+      - Annually
     VodaPayGatewayAuthenticateToken:
       example:
         traceId: traceId
@@ -1390,7 +1319,7 @@ components:
         digitalWalletId:
           type: string
         recurring:
-          $ref: '#/components/schemas/Recurring'
+          $ref: '#/components/schemas/Recurring2'
         notifications:
           $ref: '#/components/schemas/Notifications'
         styling:
@@ -1401,7 +1330,6 @@ components:
     VodaPayGatewayTokenListResponse:
       example:
         traceId: traceId
-        wasSuccessful: true
         paymentTokens:
         - paymentInstrumentAssociationName: paymentInstrumentAssociationName
           paymentInstrumentCategoryCode: paymentInstrumentCategoryCode
@@ -1439,8 +1367,6 @@ components:
           type: string
         responseCode:
           type: string
-        wasSuccessful:
-          type: boolean
         echoData:
           type: string
         tokenRequesterId:
@@ -1453,8 +1379,6 @@ components:
           items:
             $ref: '#/components/schemas/PaymentToken'
           type: array
-      required:
-      - wasSuccessful
       type: object
     PaymentToken:
       example:
@@ -1501,10 +1425,6 @@ components:
       required:
       - defaultPaymentInstrument
       type: object
-    ErrorVodaPayGatewayTokenListResponse:
-      allOf:
-      - $ref: '#/components/schemas/VodaPayGatewayTokenListResponse'
-      - $ref: '#/components/schemas/ErrorVodaPayGatewayWalletResponse_allOf'
     VodaPayGatewayListToken:
       example:
         traceId: traceId
@@ -1521,13 +1441,14 @@ components:
         digitalWalletId:
           type: string
       type: object
-    VodaPayGatewayRemoveToken:
+    VodaPayGatewayToken:
       example:
         paymentToken: paymentToken
         traceId: traceId
         customerId: customerId
         digitalWalletId: digitalWalletId
         echoData: echoData
+        tokenControlAction: null
       properties:
         echoData:
           type: string
@@ -1535,23 +1456,72 @@ components:
           type: string
         traceId:
           type: string
+        tokenControlAction:
+          $ref: '#/components/schemas/TokenControlAction'
         customerId:
           type: string
         digitalWalletId:
           type: string
+      required:
+      - tokenControlAction
       type: object
-    VodaPayGatewayToken:
-      example:
-        paymentToken: paymentToken
-        traceId: traceId
-        echoData: echoData
+    TokenControlAction:
+      description: ""
+      enum:
+      - Block
+      - Unblock
+      - Cancel
+      - Remove
+      - SetDefault
+      type: string
+      x-enumNames:
+      - Block
+      - Unblock
+      - Cancel
+      - Remove
+      - SetDefault
+    PaymentPageProcessTheme:
+      description: Payment Page Process Theme
+      enum:
+      - LightTheme
+      - DarkTheme
+      - MiniApp
+      type: string
+      x-enumNames:
+      - LightTheme
+      - DarkTheme
+      - MiniApp
+    BasketItemsProcess:
+      description: Basket Items Process
       properties:
-        echoData:
+        lineNumber:
+          description: Gets or sets the line number.
           type: string
-        paymentToken:
+        id:
+          description: Gets or sets the identifier.
           type: string
-        traceId:
+        barcode:
+          description: Gets or sets the barcode.
           type: string
+        description:
+          description: Gets or sets the description.
+          type: string
+        quantity:
+          description: Gets or sets the quantity.
+          format: int32
+          type: integer
+        amountExVAT:
+          description: Gets or sets the amount ex vat.
+          format: int32
+          type: integer
+        amountVAT:
+          description: Gets or sets the amount vat.
+          format: int32
+          type: integer
+      required:
+      - amountExVAT
+      - amountVAT
+      - quantity
       type: object
     Plugin_EcwidPayment_request:
       properties:
@@ -1559,14 +1529,85 @@ components:
           description: The data.
           nullable: true
           type: string
-    ErrorVodaPayGatewayWalletResponse_allOf:
+    PayProcess_OnceOff_request:
       properties:
-        wasSuccessful:
-          default: false
+        ApiKey:
+          description: Gets or sets the API key.
+          nullable: true
+          type: string
+        DelaySettlement:
+          description: "Gets or sets a value indicating whether [delay settlement]."
+          nullable: false
           type: boolean
-      required:
-      - wasSuccessful
-      type: object
+        IsTesting:
+          description: Gets or sets a value indicating whether this instance is testing.
+          nullable: false
+          type: boolean
+        EchoData:
+          description: Gets or sets the echo data.
+          nullable: true
+          type: string
+        TraceId:
+          description: Gets or sets the trace identifier.
+          nullable: true
+          type: string
+        Amount:
+          description: Gets or sets the amount.
+          format: int32
+          nullable: false
+          type: integer
+        AdditionalData:
+          description: Gets or sets the additional data.
+          nullable: true
+          type: string
+        CustomerId:
+          description: Gets or sets the customer identifier.
+          nullable: true
+          type: string
+        DigitalWalletId:
+          description: Gets or sets the digital wallet identifier.
+          nullable: true
+          type: string
+        CallbackUrl:
+          description: Gets or sets the callback URL.
+          nullable: true
+          type: string
+        NotificationUrl:
+          description: Gets or sets the notification URL.
+          nullable: true
+          type: string
+        LogoUrl:
+          description: Gets or sets the logo URL.
+          nullable: true
+          type: string
+        BannerUrl:
+          description: Gets or sets the banner URL.
+          nullable: true
+          type: string
+        Theme:
+          description: Gets or sets the theme.
+          enum:
+          - LightTheme
+          - DarkTheme
+          - MiniApp
+          nullable: false
+          type: string
+          x-schema:
+            $ref: '#/definitions/PaymentPageProcessTheme'
+        Basket:
+          description: Gets or sets the basket.
+          items:
+            $ref: '#/components/schemas/BasketItemsProcess'
+          nullable: true
+          type: array
+        Msisdn:
+          description: Gets or sets the msisdn.
+          nullable: true
+          type: string
+        Message:
+          description: Gets or sets the message.
+          nullable: true
+          type: string
     PaymentDigitalWalletResponseModel_allOf:
       properties:
         echoData:
