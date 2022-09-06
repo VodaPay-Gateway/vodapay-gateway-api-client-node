@@ -15,6 +15,28 @@ tags:
 - name: Token
 - name: Pay/Process
 paths:
+  /v2/CallBack:
+    get:
+      operationId: CallBack_Get
+      parameters:
+      - description: The data.
+        in: query
+        name: data
+        schema:
+          nullable: true
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                format: binary
+                type: string
+          description: ""
+      summary: gets the specified data.
+      tags:
+      - CallBack
+      x-eov-operation-handler: controllers/CallBackController
   /v2/DigitalWallet/Block:
     post:
       operationId: DigitalWallet_Block
