@@ -2,7 +2,7 @@
 const Service = require('./Service');
 
 /**
-* Block wallet.
+* Initializes a new instance of the DigitalWalletController class.
 *
 * model VodaPayGatewayDigitalWallet VodaPayGatewayDigitalWallet.
 * apiKey String The API key. (optional)

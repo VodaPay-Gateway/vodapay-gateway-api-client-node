@@ -12,7 +12,17 @@ const callBack_Get = async (request, response) => {
   await Controller.handleRequest(request, response, service.callBack_Get);
 };
 
+const callBack_NiRedirect = async (request, response) => {
+  await Controller.handleRequest(request, response, service.callBack_NiRedirect);
+};
+
+const callBack_NiWebhook = async (request, response) => {
+  await Controller.handleRequest(request, response, service.callBack_NiWebhook);
+};
+
 
 module.exports = {
   callBack_Get,
+  callBack_NiRedirect,
+  callBack_NiWebhook,
 };
