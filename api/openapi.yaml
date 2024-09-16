@@ -37,58 +37,6 @@ paths:
       tags:
       - CallBack
       x-eov-operation-handler: controllers/CallBackController
-  /v2/CallBack/NI:
-    post:
-      operationId: CallBack_NiWebhook
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/WebHookModel'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WebHookModel'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/WebHookModel'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/WebHookModel'
-        required: true
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                format: binary
-                type: string
-          description: ""
-      summary: gets the specified data.
-      tags:
-      - CallBack
-      x-codegen-request-body-name: input
-      x-eov-operation-handler: controllers/CallBackController
-  /v2/CallBack/NI/redirect/{merchantId}:
-    get:
-      operationId: CallBack_NiRedirect
-      parameters:
-      - in: path
-        name: merchantId
-        required: true
-        schema:
-          nullable: false
-          type: string
-      responses:
-        "200":
-          content:
-            '*/*':
-              schema:
-                format: binary
-                type: string
-          description: ""
-      tags:
-      - CallBack
-      x-eov-operation-handler: controllers/CallBackController
   /v2/DigitalWallet/Block:
     post:
       operationId: DigitalWallet_Block
@@ -113,9 +61,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
@@ -169,9 +114,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayDigitalWallet'
@@ -225,9 +167,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayPayment'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayPayment'
@@ -281,9 +220,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayPaymentComplete'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayPaymentComplete'
@@ -337,9 +273,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayRecurring'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayRecurring'
@@ -393,9 +326,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayRecurringSubmit'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayRecurringSubmit'
@@ -449,9 +379,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayRefund'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayRefund'
@@ -547,9 +474,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayCreateToken'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayCreateToken'
@@ -603,9 +527,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayAuthenticateToken'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayAuthenticateToken'
@@ -659,9 +580,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayListToken'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayListToken'
@@ -719,9 +637,6 @@ paths:
         x-originalName: isTesting
       requestBody:
         content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/VodaPayGatewayToken'
           application/json:
             schema:
               $ref: '#/components/schemas/VodaPayGatewayToken'
@@ -776,1274 +691,6 @@ paths:
       x-eov-operation-handler: controllers/PayProcessController
 components:
   schemas:
-    WebHookModel:
-      example:
-        eventId: eventId
-        eventName: eventName
-        order:
-          amount:
-            currencyCode: currencyCode
-            value: 0
-          _links:
-            cnp:payment-link:
-              href: https://openapi-generator.tech
-            payment-authorization:
-              href: https://openapi-generator.tech
-            self:
-              href: https://openapi-generator.tech
-            tenant-brand:
-              href: https://openapi-generator.tech
-            payment:
-              href: https://openapi-generator.tech
-            cnp:cancel:
-              href: https://openapi-generator.tech
-            merchant-brand:
-              href: https://openapi-generator.tech
-            cnp:refund:
-              href: https://openapi-generator.tech
-          outletId: outletId
-          language: language
-          merchantDefinedData:
-            traceId: traceId
-            merchantNotificationUrl: merchantNotificationUrl
-            merchantID: merchantID
-            customerID: customerID
-            echoData: echoData
-            merchantCallbackUrl: merchantCallbackUrl
-            sessionId: sessionId
-            merchantName: merchantName
-            assuranceData: assuranceData
-          createDateTime: createDateTime
-          responseCode: responseCode
-          reference: reference
-          referrer: referrer
-          emailAddress: emailAddress
-          _embedded:
-            payment:
-            - amount:
-                currencyCode: currencyCode
-                value: 0
-              "3ds":
-                summaryText: summaryText
-                eciDescription: eciDescription
-                eci: eci
-                status: status
-              _links:
-                curies:
-                - templated: true
-                  name: name
-                  href: href
-                - templated: true
-                  name: name
-                  href: href
-                payment:apple_pay:
-                  href: https://openapi-generator.tech
-                self:
-                  href: https://openapi-generator.tech
-                cnp:cancel:
-                  href: https://openapi-generator.tech
-                payment:card:
-                  href: https://openapi-generator.tech
-                payment:samsung_pay:
-                  href: https://openapi-generator.tech
-                payment:saved-card:
-                  href: https://openapi-generator.tech
-                cnp:refund:
-                  href: https://openapi-generator.tech
-              outletId: outletId
-              reference: reference
-              authResponse:
-                authorizationCode: authorizationCode
-                success: true
-                resultCode: resultCode
-                resultMessage: resultMessage
-              _embedded:
-                cnp:refund:
-                - amount:
-                    currencyCode: currencyCode
-                    value: 0
-                  _links:
-                    cnp:payment-link:
-                      href: https://openapi-generator.tech
-                    payment-authorization:
-                      href: https://openapi-generator.tech
-                    self:
-                      href: https://openapi-generator.tech
-                    tenant-brand:
-                      href: https://openapi-generator.tech
-                    payment:
-                      href: https://openapi-generator.tech
-                    cnp:cancel:
-                      href: https://openapi-generator.tech
-                    merchant-brand:
-                      href: https://openapi-generator.tech
-                    cnp:refund:
-                      href: https://openapi-generator.tech
-                  createdTime: createdTime
-                  state: state
-                - amount:
-                    currencyCode: currencyCode
-                    value: 0
-                  _links:
-                    cnp:payment-link:
-                      href: https://openapi-generator.tech
-                    payment-authorization:
-                      href: https://openapi-generator.tech
-                    self:
-                      href: https://openapi-generator.tech
-                    tenant-brand:
-                      href: https://openapi-generator.tech
-                    payment:
-                      href: https://openapi-generator.tech
-                    cnp:cancel:
-                      href: https://openapi-generator.tech
-                    merchant-brand:
-                      href: https://openapi-generator.tech
-                    cnp:refund:
-                      href: https://openapi-generator.tech
-                  createdTime: createdTime
-                  state: state
-              paymentMethod:
-                cardholderName: cardholderName
-                name: name
-                expiry: expiry
-                pan: pan
-              orderReference: orderReference
-              _id: _id
-              state: state
-              updateDateTime: 2000-01-23T04:56:07.000+00:00
-              savedCard:
-                maskedPan: maskedPan
-                scheme: scheme
-                cardholderName: cardholderName
-                expiry: expiry
-                cardToken: cardToken
-              originIp: originIp
-            - amount:
-                currencyCode: currencyCode
-                value: 0
-              "3ds":
-                summaryText: summaryText
-                eciDescription: eciDescription
-                eci: eci
-                status: status
-              _links:
-                curies:
-                - templated: true
-                  name: name
-                  href: href
-                - templated: true
-                  name: name
-                  href: href
-                payment:apple_pay:
-                  href: https://openapi-generator.tech
-                self:
-                  href: https://openapi-generator.tech
-                cnp:cancel:
-                  href: https://openapi-generator.tech
-                payment:card:
-                  href: https://openapi-generator.tech
-                payment:samsung_pay:
-                  href: https://openapi-generator.tech
-                payment:saved-card:
-                  href: https://openapi-generator.tech
-                cnp:refund:
-                  href: https://openapi-generator.tech
-              outletId: outletId
-              reference: reference
-              authResponse:
-                authorizationCode: authorizationCode
-                success: true
-                resultCode: resultCode
-                resultMessage: resultMessage
-              _embedded:
-                cnp:refund:
-                - amount:
-                    currencyCode: currencyCode
-                    value: 0
-                  _links:
-                    cnp:payment-link:
-                      href: https://openapi-generator.tech
-                    payment-authorization:
-                      href: https://openapi-generator.tech
-                    self:
-                      href: https://openapi-generator.tech
-                    tenant-brand:
-                      href: https://openapi-generator.tech
-                    payment:
-                      href: https://openapi-generator.tech
-                    cnp:cancel:
-                      href: https://openapi-generator.tech
-                    merchant-brand:
-                      href: https://openapi-generator.tech
-                    cnp:refund:
-                      href: https://openapi-generator.tech
-                  createdTime: createdTime
-                  state: state
-                - amount:
-                    currencyCode: currencyCode
-                    value: 0
-                  _links:
-                    cnp:payment-link:
-                      href: https://openapi-generator.tech
-                    payment-authorization:
-                      href: https://openapi-generator.tech
-                    self:
-                      href: https://openapi-generator.tech
-                    tenant-brand:
-                      href: https://openapi-generator.tech
-                    payment:
-                      href: https://openapi-generator.tech
-                    cnp:cancel:
-                      href: https://openapi-generator.tech
-                    merchant-brand:
-                      href: https://openapi-generator.tech
-                    cnp:refund:
-                      href: https://openapi-generator.tech
-                  createdTime: createdTime
-                  state: state
-              paymentMethod:
-                cardholderName: cardholderName
-                name: name
-                expiry: expiry
-                pan: pan
-              orderReference: orderReference
-              _id: _id
-              state: state
-              updateDateTime: 2000-01-23T04:56:07.000+00:00
-              savedCard:
-                maskedPan: maskedPan
-                scheme: scheme
-                cardholderName: cardholderName
-                expiry: expiry
-                cardToken: cardToken
-              originIp: originIp
-          paymentMethods:
-            wallet:
-            - wallet
-            - wallet
-            card:
-            - card
-            - card
-          action: action
-          merchantAttributes:
-            redirectUrl: redirectUrl
-            skip3DS: skip3DS
-          _id: _id
-          responseMessage: responseMessage
-          formattedAmount: formattedAmount
-          formattedOrderSummary: "{}"
-      properties:
-        eventId:
-          type: string
-        eventName:
-          type: string
-        order:
-          $ref: '#/components/schemas/CreateEcomOrderResponse'
-      required:
-      - eventId
-      - eventName
-      - order
-      type: object
-    CreateEcomOrderResponse:
-      example:
-        amount:
-          currencyCode: currencyCode
-          value: 0
-        _links:
-          cnp:payment-link:
-            href: https://openapi-generator.tech
-          payment-authorization:
-            href: https://openapi-generator.tech
-          self:
-            href: https://openapi-generator.tech
-          tenant-brand:
-            href: https://openapi-generator.tech
-          payment:
-            href: https://openapi-generator.tech
-          cnp:cancel:
-            href: https://openapi-generator.tech
-          merchant-brand:
-            href: https://openapi-generator.tech
-          cnp:refund:
-            href: https://openapi-generator.tech
-        outletId: outletId
-        language: language
-        merchantDefinedData:
-          traceId: traceId
-          merchantNotificationUrl: merchantNotificationUrl
-          merchantID: merchantID
-          customerID: customerID
-          echoData: echoData
-          merchantCallbackUrl: merchantCallbackUrl
-          sessionId: sessionId
-          merchantName: merchantName
-          assuranceData: assuranceData
-        createDateTime: createDateTime
-        responseCode: responseCode
-        reference: reference
-        referrer: referrer
-        emailAddress: emailAddress
-        _embedded:
-          payment:
-          - amount:
-              currencyCode: currencyCode
-              value: 0
-            "3ds":
-              summaryText: summaryText
-              eciDescription: eciDescription
-              eci: eci
-              status: status
-            _links:
-              curies:
-              - templated: true
-                name: name
-                href: href
-              - templated: true
-                name: name
-                href: href
-              payment:apple_pay:
-                href: https://openapi-generator.tech
-              self:
-                href: https://openapi-generator.tech
-              cnp:cancel:
-                href: https://openapi-generator.tech
-              payment:card:
-                href: https://openapi-generator.tech
-              payment:samsung_pay:
-                href: https://openapi-generator.tech
-              payment:saved-card:
-                href: https://openapi-generator.tech
-              cnp:refund:
-                href: https://openapi-generator.tech
-            outletId: outletId
-            reference: reference
-            authResponse:
-              authorizationCode: authorizationCode
-              success: true
-              resultCode: resultCode
-              resultMessage: resultMessage
-            _embedded:
-              cnp:refund:
-              - amount:
-                  currencyCode: currencyCode
-                  value: 0
-                _links:
-                  cnp:payment-link:
-                    href: https://openapi-generator.tech
-                  payment-authorization:
-                    href: https://openapi-generator.tech
-                  self:
-                    href: https://openapi-generator.tech
-                  tenant-brand:
-                    href: https://openapi-generator.tech
-                  payment:
-                    href: https://openapi-generator.tech
-                  cnp:cancel:
-                    href: https://openapi-generator.tech
-                  merchant-brand:
-                    href: https://openapi-generator.tech
-                  cnp:refund:
-                    href: https://openapi-generator.tech
-                createdTime: createdTime
-                state: state
-              - amount:
-                  currencyCode: currencyCode
-                  value: 0
-                _links:
-                  cnp:payment-link:
-                    href: https://openapi-generator.tech
-                  payment-authorization:
-                    href: https://openapi-generator.tech
-                  self:
-                    href: https://openapi-generator.tech
-                  tenant-brand:
-                    href: https://openapi-generator.tech
-                  payment:
-                    href: https://openapi-generator.tech
-                  cnp:cancel:
-                    href: https://openapi-generator.tech
-                  merchant-brand:
-                    href: https://openapi-generator.tech
-                  cnp:refund:
-                    href: https://openapi-generator.tech
-                createdTime: createdTime
-                state: state
-            paymentMethod:
-              cardholderName: cardholderName
-              name: name
-              expiry: expiry
-              pan: pan
-            orderReference: orderReference
-            _id: _id
-            state: state
-            updateDateTime: 2000-01-23T04:56:07.000+00:00
-            savedCard:
-              maskedPan: maskedPan
-              scheme: scheme
-              cardholderName: cardholderName
-              expiry: expiry
-              cardToken: cardToken
-            originIp: originIp
-          - amount:
-              currencyCode: currencyCode
-              value: 0
-            "3ds":
-              summaryText: summaryText
-              eciDescription: eciDescription
-              eci: eci
-              status: status
-            _links:
-              curies:
-              - templated: true
-                name: name
-                href: href
-              - templated: true
-                name: name
-                href: href
-              payment:apple_pay:
-                href: https://openapi-generator.tech
-              self:
-                href: https://openapi-generator.tech
-              cnp:cancel:
-                href: https://openapi-generator.tech
-              payment:card:
-                href: https://openapi-generator.tech
-              payment:samsung_pay:
-                href: https://openapi-generator.tech
-              payment:saved-card:
-                href: https://openapi-generator.tech
-              cnp:refund:
-                href: https://openapi-generator.tech
-            outletId: outletId
-            reference: reference
-            authResponse:
-              authorizationCode: authorizationCode
-              success: true
-              resultCode: resultCode
-              resultMessage: resultMessage
-            _embedded:
-              cnp:refund:
-              - amount:
-                  currencyCode: currencyCode
-                  value: 0
-                _links:
-                  cnp:payment-link:
-                    href: https://openapi-generator.tech
-                  payment-authorization:
-                    href: https://openapi-generator.tech
-                  self:
-                    href: https://openapi-generator.tech
-                  tenant-brand:
-                    href: https://openapi-generator.tech
-                  payment:
-                    href: https://openapi-generator.tech
-                  cnp:cancel:
-                    href: https://openapi-generator.tech
-                  merchant-brand:
-                    href: https://openapi-generator.tech
-                  cnp:refund:
-                    href: https://openapi-generator.tech
-                createdTime: createdTime
-                state: state
-              - amount:
-                  currencyCode: currencyCode
-                  value: 0
-                _links:
-                  cnp:payment-link:
-                    href: https://openapi-generator.tech
-                  payment-authorization:
-                    href: https://openapi-generator.tech
-                  self:
-                    href: https://openapi-generator.tech
-                  tenant-brand:
-                    href: https://openapi-generator.tech
-                  payment:
-                    href: https://openapi-generator.tech
-                  cnp:cancel:
-                    href: https://openapi-generator.tech
-                  merchant-brand:
-                    href: https://openapi-generator.tech
-                  cnp:refund:
-                    href: https://openapi-generator.tech
-                createdTime: createdTime
-                state: state
-            paymentMethod:
-              cardholderName: cardholderName
-              name: name
-              expiry: expiry
-              pan: pan
-            orderReference: orderReference
-            _id: _id
-            state: state
-            updateDateTime: 2000-01-23T04:56:07.000+00:00
-            savedCard:
-              maskedPan: maskedPan
-              scheme: scheme
-              cardholderName: cardholderName
-              expiry: expiry
-              cardToken: cardToken
-            originIp: originIp
-        paymentMethods:
-          wallet:
-          - wallet
-          - wallet
-          card:
-          - card
-          - card
-        action: action
-        merchantAttributes:
-          redirectUrl: redirectUrl
-          skip3DS: skip3DS
-        _id: _id
-        responseMessage: responseMessage
-        formattedAmount: formattedAmount
-        formattedOrderSummary: "{}"
-      properties:
-        _id:
-          type: string
-        _links:
-          $ref: '#/components/schemas/Links'
-        action:
-          type: string
-        amount:
-          $ref: '#/components/schemas/Amount'
-        language:
-          type: string
-        merchantAttributes:
-          $ref: '#/components/schemas/MerchantAttributes'
-        emailAddress:
-          type: string
-        reference:
-          format: guid
-          type: string
-        outletId:
-          format: guid
-          type: string
-        createDateTime:
-          type: string
-        paymentMethods:
-          $ref: '#/components/schemas/PaymentMethods'
-        referrer:
-          type: string
-        formattedAmount:
-          type: string
-        formattedOrderSummary:
-          type: object
-        _embedded:
-          $ref: '#/components/schemas/Embedded'
-        merchantDefinedData:
-          $ref: '#/components/schemas/MerchantDefinedData'
-        responseCode:
-          type: string
-        responseMessage:
-          type: string
-      required:
-      - _embedded
-      - _id
-      - _links
-      - action
-      - amount
-      - createDateTime
-      - emailAddress
-      - formattedAmount
-      - formattedOrderSummary
-      - language
-      - merchantAttributes
-      - outletId
-      - paymentMethods
-      - reference
-      - referrer
-      type: object
-    Links:
-      example:
-        cnp:payment-link:
-          href: https://openapi-generator.tech
-        payment-authorization:
-          href: https://openapi-generator.tech
-        self:
-          href: https://openapi-generator.tech
-        tenant-brand:
-          href: https://openapi-generator.tech
-        payment:
-          href: https://openapi-generator.tech
-        cnp:cancel:
-          href: https://openapi-generator.tech
-        merchant-brand:
-          href: https://openapi-generator.tech
-        cnp:refund:
-          href: https://openapi-generator.tech
-      properties:
-        cnp:payment-link:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        payment-authorization:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        self:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        tenant-brand:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        payment:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        merchant-brand:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        cnp:refund:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        cnp:cancel:
-          $ref: '#/components/schemas/CnpPaymentLink'
-      type: object
-    CnpPaymentLink:
-      example:
-        href: https://openapi-generator.tech
-      properties:
-        href:
-          format: uri
-          type: string
-      type: object
-    Amount:
-      example:
-        currencyCode: currencyCode
-        value: 0
-      properties:
-        currencyCode:
-          type: string
-        value:
-          format: int64
-          type: integer
-      required:
-      - currencyCode
-      - value
-      type: object
-    MerchantAttributes:
-      example:
-        redirectUrl: redirectUrl
-        skip3DS: skip3DS
-      properties:
-        skip3DS:
-          type: string
-        redirectUrl:
-          type: string
-      required:
-      - redirectUrl
-      - skip3DS
-      type: object
-    PaymentMethods:
-      example:
-        wallet:
-        - wallet
-        - wallet
-        card:
-        - card
-        - card
-      properties:
-        card:
-          items:
-            type: string
-          type: array
-        wallet:
-          items:
-            type: string
-          type: array
-      required:
-      - card
-      type: object
-    FormattedOrderSummary:
-      type: object
-    Embedded:
-      example:
-        payment:
-        - amount:
-            currencyCode: currencyCode
-            value: 0
-          "3ds":
-            summaryText: summaryText
-            eciDescription: eciDescription
-            eci: eci
-            status: status
-          _links:
-            curies:
-            - templated: true
-              name: name
-              href: href
-            - templated: true
-              name: name
-              href: href
-            payment:apple_pay:
-              href: https://openapi-generator.tech
-            self:
-              href: https://openapi-generator.tech
-            cnp:cancel:
-              href: https://openapi-generator.tech
-            payment:card:
-              href: https://openapi-generator.tech
-            payment:samsung_pay:
-              href: https://openapi-generator.tech
-            payment:saved-card:
-              href: https://openapi-generator.tech
-            cnp:refund:
-              href: https://openapi-generator.tech
-          outletId: outletId
-          reference: reference
-          authResponse:
-            authorizationCode: authorizationCode
-            success: true
-            resultCode: resultCode
-            resultMessage: resultMessage
-          _embedded:
-            cnp:refund:
-            - amount:
-                currencyCode: currencyCode
-                value: 0
-              _links:
-                cnp:payment-link:
-                  href: https://openapi-generator.tech
-                payment-authorization:
-                  href: https://openapi-generator.tech
-                self:
-                  href: https://openapi-generator.tech
-                tenant-brand:
-                  href: https://openapi-generator.tech
-                payment:
-                  href: https://openapi-generator.tech
-                cnp:cancel:
-                  href: https://openapi-generator.tech
-                merchant-brand:
-                  href: https://openapi-generator.tech
-                cnp:refund:
-                  href: https://openapi-generator.tech
-              createdTime: createdTime
-              state: state
-            - amount:
-                currencyCode: currencyCode
-                value: 0
-              _links:
-                cnp:payment-link:
-                  href: https://openapi-generator.tech
-                payment-authorization:
-                  href: https://openapi-generator.tech
-                self:
-                  href: https://openapi-generator.tech
-                tenant-brand:
-                  href: https://openapi-generator.tech
-                payment:
-                  href: https://openapi-generator.tech
-                cnp:cancel:
-                  href: https://openapi-generator.tech
-                merchant-brand:
-                  href: https://openapi-generator.tech
-                cnp:refund:
-                  href: https://openapi-generator.tech
-              createdTime: createdTime
-              state: state
-          paymentMethod:
-            cardholderName: cardholderName
-            name: name
-            expiry: expiry
-            pan: pan
-          orderReference: orderReference
-          _id: _id
-          state: state
-          updateDateTime: 2000-01-23T04:56:07.000+00:00
-          savedCard:
-            maskedPan: maskedPan
-            scheme: scheme
-            cardholderName: cardholderName
-            expiry: expiry
-            cardToken: cardToken
-          originIp: originIp
-        - amount:
-            currencyCode: currencyCode
-            value: 0
-          "3ds":
-            summaryText: summaryText
-            eciDescription: eciDescription
-            eci: eci
-            status: status
-          _links:
-            curies:
-            - templated: true
-              name: name
-              href: href
-            - templated: true
-              name: name
-              href: href
-            payment:apple_pay:
-              href: https://openapi-generator.tech
-            self:
-              href: https://openapi-generator.tech
-            cnp:cancel:
-              href: https://openapi-generator.tech
-            payment:card:
-              href: https://openapi-generator.tech
-            payment:samsung_pay:
-              href: https://openapi-generator.tech
-            payment:saved-card:
-              href: https://openapi-generator.tech
-            cnp:refund:
-              href: https://openapi-generator.tech
-          outletId: outletId
-          reference: reference
-          authResponse:
-            authorizationCode: authorizationCode
-            success: true
-            resultCode: resultCode
-            resultMessage: resultMessage
-          _embedded:
-            cnp:refund:
-            - amount:
-                currencyCode: currencyCode
-                value: 0
-              _links:
-                cnp:payment-link:
-                  href: https://openapi-generator.tech
-                payment-authorization:
-                  href: https://openapi-generator.tech
-                self:
-                  href: https://openapi-generator.tech
-                tenant-brand:
-                  href: https://openapi-generator.tech
-                payment:
-                  href: https://openapi-generator.tech
-                cnp:cancel:
-                  href: https://openapi-generator.tech
-                merchant-brand:
-                  href: https://openapi-generator.tech
-                cnp:refund:
-                  href: https://openapi-generator.tech
-              createdTime: createdTime
-              state: state
-            - amount:
-                currencyCode: currencyCode
-                value: 0
-              _links:
-                cnp:payment-link:
-                  href: https://openapi-generator.tech
-                payment-authorization:
-                  href: https://openapi-generator.tech
-                self:
-                  href: https://openapi-generator.tech
-                tenant-brand:
-                  href: https://openapi-generator.tech
-                payment:
-                  href: https://openapi-generator.tech
-                cnp:cancel:
-                  href: https://openapi-generator.tech
-                merchant-brand:
-                  href: https://openapi-generator.tech
-                cnp:refund:
-                  href: https://openapi-generator.tech
-              createdTime: createdTime
-              state: state
-          paymentMethod:
-            cardholderName: cardholderName
-            name: name
-            expiry: expiry
-            pan: pan
-          orderReference: orderReference
-          _id: _id
-          state: state
-          updateDateTime: 2000-01-23T04:56:07.000+00:00
-          savedCard:
-            maskedPan: maskedPan
-            scheme: scheme
-            cardholderName: cardholderName
-            expiry: expiry
-            cardToken: cardToken
-          originIp: originIp
-      properties:
-        payment:
-          items:
-            $ref: '#/components/schemas/Payment'
-          type: array
-      type: object
-    Payment:
-      example:
-        amount:
-          currencyCode: currencyCode
-          value: 0
-        "3ds":
-          summaryText: summaryText
-          eciDescription: eciDescription
-          eci: eci
-          status: status
-        _links:
-          curies:
-          - templated: true
-            name: name
-            href: href
-          - templated: true
-            name: name
-            href: href
-          payment:apple_pay:
-            href: https://openapi-generator.tech
-          self:
-            href: https://openapi-generator.tech
-          cnp:cancel:
-            href: https://openapi-generator.tech
-          payment:card:
-            href: https://openapi-generator.tech
-          payment:samsung_pay:
-            href: https://openapi-generator.tech
-          payment:saved-card:
-            href: https://openapi-generator.tech
-          cnp:refund:
-            href: https://openapi-generator.tech
-        outletId: outletId
-        reference: reference
-        authResponse:
-          authorizationCode: authorizationCode
-          success: true
-          resultCode: resultCode
-          resultMessage: resultMessage
-        _embedded:
-          cnp:refund:
-          - amount:
-              currencyCode: currencyCode
-              value: 0
-            _links:
-              cnp:payment-link:
-                href: https://openapi-generator.tech
-              payment-authorization:
-                href: https://openapi-generator.tech
-              self:
-                href: https://openapi-generator.tech
-              tenant-brand:
-                href: https://openapi-generator.tech
-              payment:
-                href: https://openapi-generator.tech
-              cnp:cancel:
-                href: https://openapi-generator.tech
-              merchant-brand:
-                href: https://openapi-generator.tech
-              cnp:refund:
-                href: https://openapi-generator.tech
-            createdTime: createdTime
-            state: state
-          - amount:
-              currencyCode: currencyCode
-              value: 0
-            _links:
-              cnp:payment-link:
-                href: https://openapi-generator.tech
-              payment-authorization:
-                href: https://openapi-generator.tech
-              self:
-                href: https://openapi-generator.tech
-              tenant-brand:
-                href: https://openapi-generator.tech
-              payment:
-                href: https://openapi-generator.tech
-              cnp:cancel:
-                href: https://openapi-generator.tech
-              merchant-brand:
-                href: https://openapi-generator.tech
-              cnp:refund:
-                href: https://openapi-generator.tech
-            createdTime: createdTime
-            state: state
-        paymentMethod:
-          cardholderName: cardholderName
-          name: name
-          expiry: expiry
-          pan: pan
-        orderReference: orderReference
-        _id: _id
-        state: state
-        updateDateTime: 2000-01-23T04:56:07.000+00:00
-        savedCard:
-          maskedPan: maskedPan
-          scheme: scheme
-          cardholderName: cardholderName
-          expiry: expiry
-          cardToken: cardToken
-        originIp: originIp
-      properties:
-        _id:
-          type: string
-        _links:
-          $ref: '#/components/schemas/PaymentLinks'
-        reference:
-          format: guid
-          type: string
-        paymentMethod:
-          $ref: '#/components/schemas/PaymentMethod'
-        savedCard:
-          $ref: '#/components/schemas/SavedCard'
-        state:
-          type: string
-        amount:
-          $ref: '#/components/schemas/Amount'
-        updateDateTime:
-          format: date-time
-          type: string
-        outletId:
-          format: guid
-          type: string
-        orderReference:
-          format: guid
-          type: string
-        originIp:
-          type: string
-        authResponse:
-          $ref: '#/components/schemas/AuthResponse'
-        _embedded:
-          $ref: '#/components/schemas/InnerEmbedded'
-        "3ds":
-          $ref: '#/components/schemas/Info3Ds'
-      type: object
-    PaymentLinks:
-      example:
-        curies:
-        - templated: true
-          name: name
-          href: href
-        - templated: true
-          name: name
-          href: href
-        payment:apple_pay:
-          href: https://openapi-generator.tech
-        self:
-          href: https://openapi-generator.tech
-        cnp:cancel:
-          href: https://openapi-generator.tech
-        payment:card:
-          href: https://openapi-generator.tech
-        payment:samsung_pay:
-          href: https://openapi-generator.tech
-        payment:saved-card:
-          href: https://openapi-generator.tech
-        cnp:refund:
-          href: https://openapi-generator.tech
-      properties:
-        payment:apple_pay:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        self:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        payment:card:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        payment:samsung_pay:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        payment:saved-card:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        cnp:cancel:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        cnp:refund:
-          $ref: '#/components/schemas/CnpPaymentLink'
-        curies:
-          items:
-            $ref: '#/components/schemas/Cury'
-          type: array
-      type: object
-    Cury:
-      example:
-        templated: true
-        name: name
-        href: href
-      properties:
-        name:
-          type: string
-        href:
-          type: string
-        templated:
-          type: boolean
-      required:
-      - href
-      - name
-      - templated
-      type: object
-    PaymentMethod:
-      example:
-        cardholderName: cardholderName
-        name: name
-        expiry: expiry
-        pan: pan
-      properties:
-        expiry:
-          type: string
-        cardholderName:
-          type: string
-        name:
-          type: string
-        pan:
-          type: string
-      type: object
-    SavedCard:
-      example:
-        maskedPan: maskedPan
-        scheme: scheme
-        cardholderName: cardholderName
-        expiry: expiry
-        cardToken: cardToken
-      properties:
-        maskedPan:
-          type: string
-        expiry:
-          type: string
-        cardholderName:
-          type: string
-        scheme:
-          type: string
-        cardToken:
-          type: string
-      type: object
-    AuthResponse:
-      example:
-        authorizationCode: authorizationCode
-        success: true
-        resultCode: resultCode
-        resultMessage: resultMessage
-      properties:
-        authorizationCode:
-          type: string
-        success:
-          type: boolean
-        resultCode:
-          type: string
-        resultMessage:
-          type: string
-      required:
-      - success
-      type: object
-    InnerEmbedded:
-      example:
-        cnp:refund:
-        - amount:
-            currencyCode: currencyCode
-            value: 0
-          _links:
-            cnp:payment-link:
-              href: https://openapi-generator.tech
-            payment-authorization:
-              href: https://openapi-generator.tech
-            self:
-              href: https://openapi-generator.tech
-            tenant-brand:
-              href: https://openapi-generator.tech
-            payment:
-              href: https://openapi-generator.tech
-            cnp:cancel:
-              href: https://openapi-generator.tech
-            merchant-brand:
-              href: https://openapi-generator.tech
-            cnp:refund:
-              href: https://openapi-generator.tech
-          createdTime: createdTime
-          state: state
-        - amount:
-            currencyCode: currencyCode
-            value: 0
-          _links:
-            cnp:payment-link:
-              href: https://openapi-generator.tech
-            payment-authorization:
-              href: https://openapi-generator.tech
-            self:
-              href: https://openapi-generator.tech
-            tenant-brand:
-              href: https://openapi-generator.tech
-            payment:
-              href: https://openapi-generator.tech
-            cnp:cancel:
-              href: https://openapi-generator.tech
-            merchant-brand:
-              href: https://openapi-generator.tech
-            cnp:refund:
-              href: https://openapi-generator.tech
-          createdTime: createdTime
-          state: state
-      properties:
-        cnp:refund:
-          items:
-            $ref: '#/components/schemas/EmbeddedRefund'
-          type: array
-      required:
-      - cnp:refund
-      type: object
-    EmbeddedRefund:
-      example:
-        amount:
-          currencyCode: currencyCode
-          value: 0
-        _links:
-          cnp:payment-link:
-            href: https://openapi-generator.tech
-          payment-authorization:
-            href: https://openapi-generator.tech
-          self:
-            href: https://openapi-generator.tech
-          tenant-brand:
-            href: https://openapi-generator.tech
-          payment:
-            href: https://openapi-generator.tech
-          cnp:cancel:
-            href: https://openapi-generator.tech
-          merchant-brand:
-            href: https://openapi-generator.tech
-          cnp:refund:
-            href: https://openapi-generator.tech
-        createdTime: createdTime
-        state: state
-      properties:
-        _links:
-          $ref: '#/components/schemas/Links'
-        amount:
-          $ref: '#/components/schemas/Amount'
-        createdTime:
-          type: string
-        state:
-          type: string
-      type: object
-    Info3Ds:
-      example:
-        summaryText: summaryText
-        eciDescription: eciDescription
-        eci: eci
-        status: status
-      properties:
-        status:
-          type: string
-        eci:
-          type: string
-        eciDescription:
-          type: string
-        summaryText:
-          type: string
-      required:
-      - eci
-      - eciDescription
-      - status
-      - summaryText
-      type: object
-    MerchantDefinedData:
-      example:
-        traceId: traceId
-        merchantNotificationUrl: merchantNotificationUrl
-        merchantID: merchantID
-        customerID: customerID
-        echoData: echoData
-        merchantCallbackUrl: merchantCallbackUrl
-        sessionId: sessionId
-        merchantName: merchantName
-        assuranceData: assuranceData
-      properties:
-        echoData:
-          type: string
-        merchantCallbackUrl:
-          type: string
-        merchantID:
-          type: string
-        merchantName:
-          type: string
-        customerID:
-          type: string
-        merchantNotificationUrl:
-          type: string
-        sessionId:
-          type: string
-        traceId:
-          type: string
-        assuranceData:
-          type: string
-      type: object
     VodaPayGatewayDigitalWalletResponse:
       example:
         traceId: traceId
@@ -2339,7 +986,7 @@ components:
       type: object
     VodaPayGatewayPaymentComplete:
       example:
-        action: 0
+        action: Settle
         echoData: echoData
         transactionId: transactionId
       properties:
@@ -2355,9 +1002,9 @@ components:
     CompleteActions:
       description: ""
       enum:
-      - 0
-      - 1
-      type: integer
+      - Settle
+      - Reversal
+      type: string
       x-enumNames:
       - Settle
       - Reversal
@@ -2392,15 +1039,15 @@ components:
         amount: 0
         accountVerification: true
         recurring:
-          amountLimit: 7
-          amount: 2
-          numberOfInstallments: 5
-          paymentInstrumentMinimumValidityPeriod: 9
+          amountLimit: 5
+          amount: 5
+          numberOfInstallments: 6
+          paymentInstrumentMinimumValidityPeriod: 2
           lastPaymentDate: 2000-01-23T04:56:07.000+00:00
           firstPaymentDate: 2000-01-23T04:56:07.000+00:00
-          regularPaymentDay: 5
-          category: 6
-          frequency: 1
+          regularPaymentDay: 1
+          category: FixedPeriodMerchant
+          frequency: AdHoc
         digitalWalletId: digitalWalletId
         electronicReceipt:
           address: address
@@ -2421,15 +1068,15 @@ components:
           callbackUrl: callbackUrl
     Recurring:
       example:
-        amountLimit: 7
-        amount: 2
-        numberOfInstallments: 5
-        paymentInstrumentMinimumValidityPeriod: 9
+        amountLimit: 5
+        amount: 5
+        numberOfInstallments: 6
+        paymentInstrumentMinimumValidityPeriod: 2
         lastPaymentDate: 2000-01-23T04:56:07.000+00:00
         firstPaymentDate: 2000-01-23T04:56:07.000+00:00
-        regularPaymentDay: 5
-        category: 6
-        frequency: 1
+        regularPaymentDay: 1
+        category: FixedPeriodMerchant
+        frequency: AdHoc
       properties:
         category:
           $ref: '#/components/schemas/Category'
@@ -2464,10 +1111,10 @@ components:
     Category:
       description: ""
       enum:
-      - 1
-      - 6
-      - 11
-      type: integer
+      - FixedPeriodMerchant
+      - OngoingMerchant
+      - OngoingVariableMerchant
+      type: string
       x-enumNames:
       - FixedPeriodMerchant
       - OngoingMerchant
@@ -2475,16 +1122,16 @@ components:
     FrequencyCodes:
       description: ""
       enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      type: integer
+      - AdHoc
+      - Daily
+      - BiWeekly
+      - Weekly
+      - Fortnightly
+      - Monthly
+      - Quarterly
+      - TwiceAnnually
+      - Annually
+      type: string
       x-enumNames:
       - AdHoc
       - Daily
@@ -2994,10 +1641,10 @@ components:
     PaymentPageProcessTheme:
       description: Payment Page Process Theme
       enum:
-      - 0
-      - 1
-      - 2
-      type: integer
+      - LightTheme
+      - DarkTheme
+      - MiniApp
+      type: string
       x-enumNames:
       - LightTheme
       - DarkTheme
@@ -3099,12 +1746,11 @@ components:
         Theme:
           description: Gets or sets the theme.
           enum:
-          - "0"
-          - "1"
-          - "2"
-          format: int32
+          - LightTheme
+          - DarkTheme
+          - MiniApp
           nullable: false
-          type: integer
+          type: string
           x-schema:
             $ref: '#/definitions/PaymentPageProcessTheme'
         Basket:
@@ -3122,5 +1768,5 @@ components:
           nullable: true
           type: string
       type: object
-x-generator: NSwag v14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))
+x-generator: NSwag v14.0.3.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))
 x-original-swagger-version: "2.0"

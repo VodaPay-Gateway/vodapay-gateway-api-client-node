@@ -17,7 +17,7 @@ const Service = require('./Service');
 * notificationUrl String Gets or sets the notification URL. (optional)
 * logoUrl String Gets or sets the logo URL. (optional)
 * bannerUrl String Gets or sets the banner URL. (optional)
-* theme Integer Gets or sets the theme. (optional)
+* theme String Gets or sets the theme. (optional)
 * basket List Gets or sets the basket. (optional)
 * msisdn String Gets or sets the msisdn. (optional)
 * message String Gets or sets the message. (optional)
